@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@media screen and (prefers-color-scheme: dark) {
+  body {
+    background: hsl(221, 39%, 11%);
+    color: white;
+  }
+}
