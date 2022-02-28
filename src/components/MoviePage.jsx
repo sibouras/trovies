@@ -1,26 +1,15 @@
-import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { useMovie } from '../hooks/useMovie';
 import { PageLoading } from './PageLoading';
-import { API_KEY } from '../utils/constants';
 import { formatDate, formatMinutes } from '../utils/functions';
 import { Bookmark, Check, StarSolid } from '../assets/icons/HeroIcons';
 
 export function MoviePage() {
   const params = useParams();
   const movieId = params.movieId.split('-')[0];
-  const url = `https://api.themoviedb.org/3/movie/${movieId}?api_key=${API_KEY}`;
-  const [movieDetails, setMovieDetails] = useState();
+  const { data: movieDetails, isLoading } = useMovie(movieId);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch(url);
-      const data = await response.json();
-      setMovieDetails(data);
-    };
-    fetchData();
-  }, [url]);
-
-  if (!movieDetails) {
+  if (isLoading) {
     return (
       <div className='flex h-screen justify-center align-top'>
         <PageLoading className={'h-3/5 w-40 text-gray-500'} />
