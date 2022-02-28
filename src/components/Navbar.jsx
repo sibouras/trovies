@@ -14,7 +14,7 @@ export function Navbar() {
         {/* navbar left side */}
         <div className='inline-flex items-center sm:space-x-3'>
           <NavLink
-            to='/movie?page=1'
+            to='/movie'
             className='hidden items-center p-1 text-2xl xs:flex'
           >
             <Film className='h-6 w-6' />

@@ -1,45 +1,29 @@
-import { useEffect, useState } from 'react';
 import { Link, useOutletContext } from 'react-router-dom';
 import clsx from 'clsx';
 import { PageLoading } from './PageLoading';
-import { API_KEY } from '../utils/constants';
 import { formatDate } from '../utils/functions';
 import { Bookmark, Check, StarSolid } from '../assets/icons/HeroIcons';
 import noImage from '../assets/img/img-not-found.svg';
+import { useMovies } from '../hooks/useMovies';
 
 export function MovieGrid() {
-  const [type, searchParams, setSearchParams] = useOutletContext();
-  const [popularResults, setPopularResults] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const url = `https://api.themoviedb.org/3/movie/${type}?api_key=${API_KEY}&language=en-US`;
-
-  useEffect(() => {
-    const currentPage = +searchParams.get('page') || 1;
-    const fetchData = async () => {
-      setIsLoading(true);
-      try {
-        const response = await fetch(`${url}&page=${currentPage}`);
-        const data = await response.json();
-        setPopularResults(data.results);
-      } catch (error) {
-        console.log(error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    // + converts null to 0 (searchParams.get returns null when not found)
-    if (+searchParams.get('page') <= 0 || +searchParams.get('page') > 200) {
-      setSearchParams({ page: '1' });
-    } else {
-      fetchData();
-    }
-  }, [searchParams, setSearchParams, url]);
+  const [type, searchParams] = useOutletContext();
+  const page = +searchParams.get('page') || 1;
+  const { data, isLoading, isError, error } = useMovies(page, type);
+  const popularResults = data?.results;
 
   if (isLoading) {
     return (
       <div className='flex h-screen justify-center align-top'>
         <PageLoading className={'h-3/5 w-40 text-gray-500'} />
+      </div>
+    );
+  }
+
+  if (isError) {
+    return (
+      <div className='flex h-screen justify-center align-top'>
+        {error.message}
       </div>
     );
   }
