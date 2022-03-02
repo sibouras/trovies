@@ -3,26 +3,29 @@ import { usePagination, DOTS } from '../hooks/usePagination';
 import { ChevronLeft, ChevronRight } from '../assets/icons/HeroIcons';
 import clsx from 'clsx';
 
-export function Pagination({ placement, searchParams, setSearchParams }) {
-  const currentPage = +searchParams.get('page');
-  const totalCount = 200;
+export function Pagination({
+  placement,
+  setSearchParams,
+  page,
+  isPreviousData,
+}) {
+  const totalCount = 500;
 
   const paginationRange = usePagination({
     totalCount,
     pageSize: 1,
     siblingCount: 1,
-    currentPage,
+    currentPage: page,
   });
 
-  // todo scrolling
   return (
-    <div className='flex items-center justify-center py-8 xs:space-x-2 space-x-1'>
+    <div className='flex items-center justify-center space-x-1 py-8 xs:space-x-2'>
       <Controls
         placement={placement}
-        currentPage={currentPage}
-        disabled={currentPage === 1}
+        currentPage={page}
+        disabled={page === 1}
         onClick={() => {
-          setSearchParams({ page: currentPage - 1 });
+          setSearchParams({ page: Math.max(1, page - 1) });
         }}
       >
         <ChevronLeft className='h-6 w-5 xs:h-7 xs:w-6' />
@@ -41,7 +44,7 @@ export function Pagination({ placement, searchParams, setSearchParams }) {
             key={pageNumber}
             to={`?page=${pageNumber}`}
             className={`block rounded bg-gray-200 py-1 px-3 xs:text-lg ${
-              currentPage === pageNumber
+              page === pageNumber
                 ? 'bg-blue-600 text-white'
                 : 'dark:bg-gray-800 '
             }`}
@@ -56,10 +59,12 @@ export function Pagination({ placement, searchParams, setSearchParams }) {
 
       <Controls
         placement={placement}
-        currentPage={currentPage}
-        disabled={currentPage === totalCount}
+        currentPage={page}
+        disabled={isPreviousData || page >= totalCount}
         onClick={() => {
-          setSearchParams({ page: currentPage + 1 });
+          if (!isPreviousData && page < totalCount) {
+            setSearchParams({ page: page + 1 });
+          }
         }}
       >
         <ChevronRight className='h-6 w-5 xs:h-7 xs:w-6' />

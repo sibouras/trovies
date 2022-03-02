@@ -7,7 +7,7 @@ import { Bookmark, Check, StarSolid } from '../assets/icons/HeroIcons';
 export function MoviePage() {
   const params = useParams();
   const movieId = params.movieId.split('-')[0];
-  const { data: movieDetails, isLoading } = useMovie(movieId);
+  const { data: movieDetails, isLoading, isError, error } = useMovie(movieId);
 
   if (isLoading) {
     return (
@@ -17,8 +17,16 @@ export function MoviePage() {
     );
   }
 
+  if (isError) {
+    return (
+      <div className='flex h-screen justify-center align-top'>
+        <div className='pt-10 text-xl'>{error.message}</div>
+      </div>
+    );
+  }
+
   return (
-    <div>
+    <>
       <div className='py-8 md:flex'>
         <img
           className='mx-auto w-80 rounded-xl'
@@ -68,7 +76,7 @@ export function MoviePage() {
           </p>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 

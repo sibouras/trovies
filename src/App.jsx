@@ -4,10 +4,11 @@ import { Navbar } from './components/Navbar';
 import { Watched } from './components/Watched';
 import { WatchList } from './components/WatchList';
 import { Movie } from './components/Movie';
-import { MovieGrid } from './components/MovieGrid';
+import { MovieHome } from './components/MovieHome';
 import { MoviePage } from './components/MoviePage';
 
 const queryClient = new QueryClient();
+const types = ['popular', 'now_playing', 'upcoming', 'top_rated'];
 
 function App() {
   return (
@@ -17,13 +18,11 @@ function App() {
           <Navbar />
           <Routes>
             <Route path='/' element={<Navigate replace to='/movie' />} />
-            <Route path='/movie' element={<Movie />}>
+            <Route path='/movie' element={<Movie types={types} />}>
               <Route index element={<Navigate replace to='popular?page=1' />} />
-              {['popular', 'now_playing', 'upcoming', 'top_rated'].map(
-                (path, idx) => (
-                  <Route key={idx} path={path} element={<MovieGrid />} />
-                )
-              )}
+              {types.map((path, idx) => (
+                <Route key={idx} path={path} element={<MovieHome />} />
+              ))}
               <Route path=':movieId' element={<MoviePage />} />
             </Route>
             <Route path='/watchlist' element={<WatchList />} />

@@ -2,18 +2,18 @@ import { useQuery, useQueryClient } from 'react-query';
 import { API_KEY } from '../utils/constants';
 import { useEffect } from 'react';
 
-export async function getMovies(page, type) {
+const getMovies = async (page, type) => {
   const url = `https://api.themoviedb.org/3/movie/${type}?api_key=${API_KEY}&language=en-US`;
   const response = await fetch(`${url}&page=${page}`);
   if (!response.ok) {
-    throw new Error("Error: couldn't fetch");
+    throw new Error('Page not found!');
   }
   return response.json();
-}
+};
 
 export function useMovies(page, type) {
   const queryClient = useQueryClient();
-  const { data, isLoading, isError, error } = useQuery(
+  const { data, isLoading, isError, error, isPreviousData } = useQuery(
     ['movies', page, type],
     () => getMovies(page, type),
     {
@@ -26,7 +26,7 @@ export function useMovies(page, type) {
 
   // Prefetch the next page
   useEffect(() => {
-    if (page < data?.total_pages) {
+    if (page < 500) {
       queryClient.prefetchQuery(
         ['movies', page + 1],
         () => getMovies(page + 1, type),
@@ -35,5 +35,5 @@ export function useMovies(page, type) {
     }
   }, [data, page, type, queryClient]);
 
-  return { data, isLoading, isError, error };
+  return { data, isLoading, isError, error, isPreviousData };
 }

@@ -6,7 +6,7 @@ const getMovieById = async (movieId) => {
     `https://api.themoviedb.org/3/movie/${movieId}?api_key=${API_KEY}`
   );
   if (!response.ok) {
-    throw new Error("couldn't fetch");
+    throw new Error('Page not found!');
   }
   return response.json();
 };

@@ -1,33 +1,10 @@
-import { Link, useOutletContext } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import clsx from 'clsx';
-import { PageLoading } from './PageLoading';
 import { formatDate } from '../utils/functions';
 import { Bookmark, Check, StarSolid } from '../assets/icons/HeroIcons';
 import noImage from '../assets/img/img-not-found.svg';
-import { useMovies } from '../hooks/useMovies';
 
-export function MovieGrid() {
-  const [type, searchParams] = useOutletContext();
-  const page = +searchParams.get('page') || 1;
-  const { data, isLoading, isError, error } = useMovies(page, type);
-  const popularResults = data?.results;
-
-  if (isLoading) {
-    return (
-      <div className='flex h-screen justify-center align-top'>
-        <PageLoading className={'h-3/5 w-40 text-gray-500'} />
-      </div>
-    );
-  }
-
-  if (isError) {
-    return (
-      <div className='flex h-screen justify-center align-top'>
-        {error.message}
-      </div>
-    );
-  }
-
+export function MovieGrid({ popularResults }) {
   return (
     <div className='grid min-h-screen grid-cols-[repeat(auto-fit,minmax(200px,1fr))] place-items-center gap-4'>
       {popularResults?.map(
