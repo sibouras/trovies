@@ -1,14 +1,14 @@
 import { useRef, useState } from 'react';
-import { useFetch } from '../hooks/useFetch';
+import clsx from 'clsx';
+import { useMovieSearch } from '../hooks/useMovieSearch';
 import { SearchbarItem } from './SearchbarItem';
 import { Search } from '../assets/icons/HeroIcons';
 import { Spinner } from '../assets/icons/css.gg';
-import clsx from 'clsx';
 
 export function Searchbar() {
   const [searchTerm, setSearchTerm] = useState('');
-  const { response, setResponse, isLoading } = useFetch(searchTerm);
-  const results = response.results ?? [];
+  const { data, isLoading } = useMovieSearch(searchTerm);
+  const results = data?.results ?? [];
   const hasResults = results && results.length > 0;
   const inputRef = useRef();
   const ulRef = useRef();
@@ -51,7 +51,10 @@ export function Searchbar() {
   const handleChange = (e) => {
     setSearchTerm(e.target.value);
     if (e.target.value == '') {
-      setResponse([]);
+      ulRef.current.hidden = true;
+      setTimeout(() => {
+        ulRef.current.hidden = false;
+      }, 500);
     }
   };
 
