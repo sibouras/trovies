@@ -1,10 +1,12 @@
 import { Link } from 'react-router-dom';
 import clsx from 'clsx';
+import { AddButton } from './AddButton';
 import { formatDate } from '../utils/functions';
 import { Bookmark, Check, StarSolid } from '../assets/icons/HeroIcons';
 import noImage from '../assets/img/img-not-found.svg';
 
 export function MovieGrid({ popularResults }) {
+  console.log('MovieGrid');
   return (
     <div className='grid min-h-screen grid-cols-[repeat(auto-fit,minmax(200px,1fr))] place-items-center gap-4'>
       {popularResults?.map(
@@ -25,7 +27,7 @@ export function MovieGrid({ popularResults }) {
                   <img src={noImage} alt='not found' className='bg-gray-400' />
                 )}
               </Link>
-              <ImageOverlay vote_average={vote_average} title={title} />
+              <ImageOverlay vote_average={vote_average} title={title} id={id} />
             </div>
             <h3 className='group-hover:text-blue-700 dark:group-hover:text-blue-300'>
               <a
@@ -46,7 +48,7 @@ export function MovieGrid({ popularResults }) {
   );
 }
 
-function ImageOverlay({ vote_average, title }) {
+function ImageOverlay({ vote_average, title, id }) {
   return (
     <div
       className={clsx(
@@ -66,26 +68,14 @@ function ImageOverlay({ vote_average, title }) {
         </div>
         <h3 className='w-full py-2 text-center text-lg'>{title}</h3>
         <div className='pointer-events-auto mt-1 flex space-x-5'>
-          <OverlayButton title='add to watched'>
+          <AddButton listType='watched' id={id}>
             <Check className='h-6 w-6' />
-          </OverlayButton>
-          <OverlayButton title='add to watchlist'>
+          </AddButton>
+          <AddButton listType='watchlist' id={id}>
             <Bookmark className='h-5 w-5' />
-          </OverlayButton>
+          </AddButton>
         </div>
       </div>
     </div>
-  );
-}
-
-function OverlayButton({ children, title }) {
-  return (
-    <button
-      className='flex h-12 w-12 items-center justify-center rounded-full bg-gray-800 hover:text-blue-400'
-      title={title}
-      tabIndex='-1'
-    >
-      {children}
-    </button>
   );
 }

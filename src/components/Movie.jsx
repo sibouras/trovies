@@ -1,7 +1,8 @@
-import { Outlet, useSearchParams, useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
+import { Outlet, useSearchParams, useLocation } from 'react-router-dom';
 
-export function Movie({ types }) {
+export function Movie({ types, watched, setWatched, watchlist, setWatchlist }) {
+  console.log('Movie')
   const [searchParams, setSearchParams] = useSearchParams();
   const location = useLocation();
   const type = location.pathname.replace('/movie/', '');
@@ -17,14 +18,24 @@ export function Movie({ types }) {
   if (types.indexOf(type) === -1) {
     return (
       <div className='mx-auto max-w-6xl'>
-        <Outlet />
+        <Outlet context={{ watched, setWatched, watchlist, setWatchlist }} />
       </div>
     );
   }
 
   return (
     <div className='mx-auto max-w-6xl px-2'>
-      <Outlet context={[type, searchParams, setSearchParams]} />
+      <Outlet
+        context={{
+          type,
+          searchParams,
+          setSearchParams,
+          watched,
+          setWatched,
+          watchlist,
+          setWatchlist,
+        }}
+      />
     </div>
   );
 }

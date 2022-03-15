@@ -5,7 +5,8 @@ import { Pagination } from './Pagination';
 import { MovieGrid } from './MovieGrid';
 
 export function MovieHome() {
-  const [type, searchParams, setSearchParams] = useOutletContext();
+  console.log('MovieHome')
+  const { type, searchParams, setSearchParams } = useOutletContext();
   const page = +searchParams.get('page') || 1;
   const { data, isLoading, isError, error, isPreviousData } = useMovies(
     page,

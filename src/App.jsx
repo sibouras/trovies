@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { Navbar } from './components/Navbar';
@@ -11,6 +12,10 @@ const queryClient = new QueryClient();
 const types = ['popular', 'now_playing', 'upcoming', 'top_rated'];
 
 function App() {
+  console.log('App')
+  const [watched, setWatched] = useState([]);
+  const [watchlist, setWatchlist] = useState([]);
+
   return (
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
@@ -18,7 +23,18 @@ function App() {
           <Navbar />
           <Routes>
             <Route path='/' element={<Navigate replace to='/movie' />} />
-            <Route path='/movie' element={<Movie types={types} />}>
+            <Route
+              path='/movie'
+              element={
+                <Movie
+                  types={types}
+                  watched={watched}
+                  setWatched={setWatched}
+                  watchlist={watchlist}
+                  setWatchlist={setWatchlist}
+                />
+              }
+            >
               <Route index element={<Navigate replace to='popular?page=1' />} />
               {types.map((path, idx) => (
                 <Route key={idx} path={path} element={<MovieHome />} />
