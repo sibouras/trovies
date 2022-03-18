@@ -12,9 +12,8 @@ const queryClient = new QueryClient();
 const types = ['popular', 'now_playing', 'upcoming', 'top_rated'];
 
 function App() {
-  console.log('App')
-  const [watched, setWatched] = useState([]);
-  const [watchlist, setWatchlist] = useState([]);
+  console.log('App');
+  const [list, setList] = useState({ watchlist: [], watched: [] });
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -25,15 +24,7 @@ function App() {
             <Route path='/' element={<Navigate replace to='/movie' />} />
             <Route
               path='/movie'
-              element={
-                <Movie
-                  types={types}
-                  watched={watched}
-                  setWatched={setWatched}
-                  watchlist={watchlist}
-                  setWatchlist={setWatchlist}
-                />
-              }
+              element={<Movie types={types} list={list} setList={setList} />}
             >
               <Route index element={<Navigate replace to='popular?page=1' />} />
               {types.map((path, idx) => (

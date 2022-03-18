@@ -2,22 +2,18 @@ import { useOutletContext } from 'react-router-dom';
 import clsx from 'clsx';
 
 export function AddButton({ children, id, listType }) {
-  const { type, watched, setWatched, watchlist, setWatchlist } =
-    useOutletContext();
+  const { type, list, setList } = useOutletContext();
 
   const isInList = (listType) => {
-    const list = listType === 'watched' ? watched : watchlist;
-    return list.includes(id);
+    return list[listType].includes(id);
   };
 
   const handleClick = (listType) => {
-    const list = listType === 'watched' ? watched : watchlist;
-    const setList = listType === 'watched' ? setWatched : setWatchlist;
     if (isInList(listType)) {
-      const newList = list.filter((movieId) => movieId !== id);
-      setList(newList);
+      const newList = list[listType].filter((movieId) => movieId !== id);
+      setList({ ...list, [listType]: newList });
     } else {
-      setList([...list, id]);
+      setList({ ...list, [listType]: [...list[listType], id] });
     }
   };
 
