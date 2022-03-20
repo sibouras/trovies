@@ -1,8 +1,10 @@
 import { useOutletContext } from 'react-router-dom';
 import clsx from 'clsx';
+import { useGlobalContext } from '../context/GlobalState';
 
 export function AddButton({ children, id, listType }) {
-  const { type, list, setList } = useOutletContext();
+  const { type } = useOutletContext();
+  const { list, setList } = useGlobalContext();
 
   const isInList = (listType) => {
     return list[listType].includes(id);
@@ -30,9 +32,7 @@ export function AddButton({ children, id, listType }) {
       title={
         isInList(listType) ? `remove from ${listType}` : `add to ${listType}`
       }
-      onClick={() => {
-        handleClick(listType);
-      }}
+      onClick={() => handleClick(listType)}
     >
       {children}
     </button>

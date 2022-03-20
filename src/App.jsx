@@ -1,6 +1,6 @@
-import { useState } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import { GlobalProvider } from './context/GlobalState';
 import { Navbar } from './components/Navbar';
 import { Watched } from './components/Watched';
 import { WatchList } from './components/WatchList';
@@ -13,31 +13,32 @@ const types = ['popular', 'now_playing', 'upcoming', 'top_rated'];
 
 function App() {
   console.log('App');
-  const [list, setList] = useState({ watchlist: [], watched: [] });
 
   return (
     <QueryClientProvider client={queryClient}>
-      <BrowserRouter>
-        <div className='min-h-screen bg-white text-black dark:bg-gray-900 dark:text-gray-100'>
-          <Navbar />
-          <Routes>
-            <Route path='/' element={<Navigate replace to='/movie' />} />
-            <Route
-              path='/movie'
-              element={<Movie types={types} list={list} setList={setList} />}
-            >
-              <Route index element={<Navigate replace to='popular?page=1' />} />
-              {types.map((path, idx) => (
-                <Route key={idx} path={path} element={<MovieHome />} />
-              ))}
-              <Route path=':movieId' element={<MoviePage />} />
-            </Route>
-            <Route path='/watchlist' element={<WatchList />} />
-            <Route path='/watched' element={<Watched />} />
-            <Route path='*' element={<h1>Page doesn't exist</h1>} />
-          </Routes>
-        </div>
-      </BrowserRouter>
+      <GlobalProvider>
+        <BrowserRouter>
+          <div className='min-h-screen bg-white text-black dark:bg-gray-900 dark:text-gray-100'>
+            <Navbar />
+            <Routes>
+              <Route path='/' element={<Navigate replace to='/movie' />} />
+              <Route path='/movie' element={<Movie types={types} />}>
+                <Route
+                  index
+                  element={<Navigate replace to='popular?page=1' />}
+                />
+                {types.map((path, idx) => (
+                  <Route key={idx} path={path} element={<MovieHome />} />
+                ))}
+                <Route path=':movieId' element={<MoviePage />} />
+              </Route>
+              <Route path='/watchlist' element={<WatchList />} />
+              <Route path='/watched' element={<Watched />} />
+              <Route path='*' element={<h1>Page doesn't exist</h1>} />
+            </Routes>
+          </div>
+        </BrowserRouter>
+      </GlobalProvider>
     </QueryClientProvider>
   );
 }
