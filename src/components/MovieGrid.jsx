@@ -5,12 +5,12 @@ import { formatDate } from '../utils/functions';
 import { Bookmark, Check, StarSolid } from '../assets/icons/HeroIcons';
 import noImage from '../assets/img/img-not-found.svg';
 
-export function MovieGrid({ popularResults }) {
-  console.log('MovieGrid');
+export function MovieGrid({ movies }) {
   return (
     <div className='grid min-h-screen grid-cols-[repeat(auto-fit,minmax(200px,1fr))] place-items-center gap-4'>
-      {popularResults?.map(
-        ({ id, poster_path, title, release_date, vote_average }) => (
+      {movies?.map((movie) => {
+        const { id, poster_path, title, release_date } = movie;
+        return (
           <div key={id} className='group mb-3'>
             <div className='relative mb-2 w-full overflow-hidden rounded-lg'>
               <Link
@@ -27,7 +27,7 @@ export function MovieGrid({ popularResults }) {
                   <img src={noImage} alt='not found' className='bg-gray-400' />
                 )}
               </Link>
-              <ImageOverlay vote_average={vote_average} title={title} id={id} />
+              <ImageOverlay movie={movie} />
             </div>
             <h3 className='group-hover:text-blue-700 dark:group-hover:text-blue-300'>
               <a
@@ -42,13 +42,14 @@ export function MovieGrid({ popularResults }) {
               {formatDate(release_date)}
             </p>
           </div>
-        )
-      )}
+        );
+      })}
     </div>
   );
 }
 
-function ImageOverlay({ vote_average, title, id }) {
+function ImageOverlay({ movie }) {
+  const { vote_average, title } = movie;
   return (
     <div
       className={clsx(
@@ -68,10 +69,10 @@ function ImageOverlay({ vote_average, title, id }) {
         </div>
         <h3 className='w-full py-2 text-center text-lg'>{title}</h3>
         <div className='pointer-events-auto mt-1 flex space-x-5'>
-          <AddButton listType='watched' id={id}>
+          <AddButton listType='watched' movie={movie}>
             <Check className='h-6 w-6' />
           </AddButton>
-          <AddButton listType='watchlist' id={id}>
+          <AddButton listType='watchlist' movie={movie}>
             <Bookmark className='h-5 w-5' />
           </AddButton>
         </div>

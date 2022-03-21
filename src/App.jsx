@@ -12,8 +12,6 @@ const queryClient = new QueryClient();
 const types = ['popular', 'now_playing', 'upcoming', 'top_rated'];
 
 function App() {
-  console.log('App');
-
   return (
     <QueryClientProvider client={queryClient}>
       <GlobalProvider>

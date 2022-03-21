@@ -5,14 +5,12 @@ import { Pagination } from './Pagination';
 import { MovieGrid } from './MovieGrid';
 
 export function MovieHome() {
-  console.log('MovieHome')
   const { type, searchParams, setSearchParams } = useOutletContext();
   const page = +searchParams.get('page') || 1;
   const { data, isLoading, isError, error, isPreviousData } = useMovies(
     page,
     type
   );
-  const popularResults = data?.results;
 
   if (isLoading) {
     return (
@@ -41,7 +39,7 @@ export function MovieHome() {
         setSearchParams={setSearchParams}
         isPreviousData={isPreviousData}
       />
-      <MovieGrid popularResults={popularResults} />
+      <MovieGrid movies={data?.results} />
       <Pagination
         page={page}
         placement='bottom'

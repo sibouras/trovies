@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 import { Outlet, useSearchParams, useLocation } from 'react-router-dom';
 
 export function Movie({ types, list, setList }) {
-  console.log('Movie');
   const [searchParams, setSearchParams] = useSearchParams();
   const location = useLocation();
   const type = location.pathname.replace('/movie/', '');

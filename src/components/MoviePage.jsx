@@ -6,7 +6,6 @@ import { formatDate, formatMinutes } from '../utils/functions';
 import { Bookmark, Check, StarSolid } from '../assets/icons/HeroIcons';
 
 export function MoviePage() {
-  console.log('MoviePage')
   const params = useParams();
   const movieId = params.movieId.split('-')[0];
   const { data: movieDetails, isLoading, isError, error } = useMovie(movieId);
@@ -64,10 +63,10 @@ export function MoviePage() {
               </span>
             </div>
             <div className='flex space-x-4'>
-              <AddButton id={movieDetails.id} listType='watched'>
+              <AddButton movie={movieDetails} listType='watched'>
                 <Check className='h-6 w-6' />
               </AddButton>
-              <AddButton id={movieDetails.id} listType='watchlist'>
+              <AddButton movie={movieDetails} listType='watchlist'>
                 <Bookmark className='h-5 w-5' />
               </AddButton>
             </div>
