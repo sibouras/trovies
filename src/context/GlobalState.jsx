@@ -1,9 +1,20 @@
-import { useState, createContext, useContext } from 'react';
+import { useState, createContext, useContext, useEffect } from 'react';
 
 const GlobalContext = createContext();
 
+const initialState = localStorage.getItem('list')
+  ? JSON.parse(localStorage.getItem('list'))
+  : {
+      watchlist: [],
+      watched: [],
+    };
+
 export function GlobalProvider({ children }) {
-  const [list, setList] = useState({ watchlist: [], watched: [] });
+  const [list, setList] = useState(initialState);
+
+  useEffect(() => {
+    localStorage.setItem('list', JSON.stringify(list));
+  }, [list]);
 
   const handleClick = (listType, movie) => {
     if (list[listType].find((obj) => obj.id === movie.id)) {
