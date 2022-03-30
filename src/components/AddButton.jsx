@@ -1,9 +1,7 @@
-import { useOutletContext } from 'react-router-dom';
 import clsx from 'clsx';
 import { useGlobalContext } from '../context/GlobalState';
 
-export function AddButton({ children, listType, movie }) {
-  const { type } = useOutletContext();
+export function AddButton({ children, listType, movie, tabIndex }) {
   const { list, handleClick } = useGlobalContext();
 
   const isInList = list[listType].find((obj) => obj.id === movie.id);
@@ -17,7 +15,7 @@ export function AddButton({ children, listType, movie }) {
           ? 'text-green-700 dark:text-green-400'
           : 'text-black dark:text-white'
       )}
-      tabIndex={type && '-1'}
+      tabIndex={tabIndex}
       title={isInList ? `remove from ${listType}` : `add to ${listType}`}
       onClick={() => handleClick(listType, movie)}
     >

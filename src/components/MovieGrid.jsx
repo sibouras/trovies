@@ -7,7 +7,13 @@ import noImage from '../assets/img/img-not-found.svg';
 
 export function MovieGrid({ movies }) {
   return (
-    <div className='grid min-h-screen grid-cols-[repeat(auto-fit,minmax(200px,1fr))] place-items-center gap-4'>
+    <div
+      className={`grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-4 ${
+        movies.length <= 5
+          ? 'sm:grid-cols-[repeat(auto-fit,200px)]'
+          : 'min-h-screen'
+      }`}
+    >
       {movies?.map((movie) => {
         const { id, poster_path, title, release_date } = movie;
         return (
@@ -69,10 +75,10 @@ function ImageOverlay({ movie }) {
         </div>
         <h3 className='w-full py-2 text-center text-lg'>{title}</h3>
         <div className='pointer-events-auto mt-1 flex space-x-5'>
-          <AddButton listType='watched' movie={movie}>
+          <AddButton listType='watched' movie={movie} tabIndex='-1'>
             <Check className='h-6 w-6' />
           </AddButton>
-          <AddButton listType='watchlist' movie={movie}>
+          <AddButton listType='watchlist' movie={movie} tabIndex='-1'>
             <Bookmark className='h-5 w-5' />
           </AddButton>
         </div>
