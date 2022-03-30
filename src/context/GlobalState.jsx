@@ -16,12 +16,27 @@ export function GlobalProvider({ children }) {
     localStorage.setItem('list', JSON.stringify(list));
   }, [list]);
 
+  const makeMovie = (movie) => ({
+    id: movie.id,
+    title: movie.title,
+    poster_path: movie.poster_path,
+    release_date: movie.release_date,
+    vote_average: movie.vote_average,
+    popularity: movie.popularity,
+    add_date: new Intl.DateTimeFormat('en', {
+      timeStyle: 'medium',
+      dateStyle: 'short',
+      hour12: false,
+    }).format(),
+  });
+
   const handleClick = (listType, movie) => {
-    if (list[listType].find((obj) => obj.id === movie.id)) {
-      const newList = list[listType].filter((obj) => obj.id !== movie.id);
+    const newMovie = makeMovie(movie);
+    if (list[listType].find((obj) => obj.id === newMovie.id)) {
+      const newList = list[listType].filter((obj) => obj.id !== newMovie.id);
       setList({ ...list, [listType]: newList });
     } else {
-      setList({ ...list, [listType]: [...list[listType], movie] });
+      setList({ ...list, [listType]: [...list[listType], newMovie] });
     }
   };
 
