@@ -41,7 +41,7 @@ export function GlobalProvider({ children }) {
   };
 
   return (
-    <GlobalContext.Provider value={{ list, handleClick }}>
+    <GlobalContext.Provider value={{ list, setList, handleClick }}>
       {children}
     </GlobalContext.Provider>
   );
