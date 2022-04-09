@@ -1,9 +1,10 @@
 import { useEffect, useRef } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, useLocation } from 'react-router-dom';
 import { ArrowDown, ArrowUp } from '../assets/icons/HeroIcons';
 
 export function ListFilter({ list, setList }) {
-  const { watchlist } = list;
+  const location = useLocation();
+  const listType = location.pathname.replace('/', '');
   const [searchParams, setSearchParams] = useSearchParams();
   const sort = searchParams.get('sort') ?? 'popularity';
   const order = searchParams.get('order') ?? 'desc';
@@ -14,8 +15,8 @@ export function ListFilter({ list, setList }) {
     sortRef.current = sort;
     orderRef.current = order;
     if (!searchParams.get('sort')) return;
-    const sortedList = sortList(watchlist, sort, order);
-    setList({ ...list, watchlist: sortedList });
+    const sortedList = sortList(list[listType], sort, order);
+    setList({ ...list, [listType]: sortedList });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams]);
 
@@ -25,9 +26,10 @@ export function ListFilter({ list, setList }) {
     return () => {
       if (sortRef.current === 'popularity' && orderRef.current === 'desc')
         return;
-      const sortedList = sortList(watchlist, 'popularity', 'desc');
-      setList({ ...list, watchlist: sortedList });
+      const sortedList = sortList(list[listType], 'popularity', 'desc');
+      setList({ ...list, [listType]: sortedList });
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleChange = (e) => {
