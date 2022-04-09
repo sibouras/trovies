@@ -77,8 +77,8 @@ export function Navbar() {
           <Searchbar />
           <div className='mr-2 mt-3'></div>
           {[
-            ['Watchlist', '/watchlist'],
             ['Watched', '/watched'],
+            ['Watchlist', '/watchlist'],
           ].map(([title, url]) => (
             <NavLink
               key={title}

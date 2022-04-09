@@ -10,7 +10,7 @@ export function MovieGrid({ movies }) {
     <div
       className={`grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-4 ${
         movies.length <= 5
-          ? 'sm:grid-cols-[repeat(auto-fit,200px)]'
+          ? 'sm:grid-cols-[repeat(auto-fit,214px)]'
           : 'min-h-screen'
       }`}
     >
