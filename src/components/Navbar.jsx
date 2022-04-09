@@ -1,9 +1,14 @@
 import { useState } from 'react';
-import { ThemeToggle } from './ThemeToggle';
 import { NavLink } from 'react-router-dom';
-import { Searchbar } from './Searchbar';
-import { ChevronDown, Menu, X, Film } from '../assets/icons/HeroIcons';
 import clsx from 'clsx';
+import {
+  ChevronDownIcon,
+  FilmIcon,
+  XIcon,
+  MenuIcon,
+} from '@heroicons/react/outline';
+import { ThemeToggle } from './ThemeToggle';
+import { Searchbar } from './Searchbar';
 
 export function Navbar() {
   const [isMenuHidden, setIsMenuHidden] = useState(true);
@@ -17,14 +22,14 @@ export function Navbar() {
             to='/movie'
             className='hidden items-center p-1 text-2xl xs:flex'
           >
-            <Film className='h-6 w-6' />
+            <FilmIcon className='h-6 w-6' />
             <span className='ml-1'>Trovies</span>
           </NavLink>
 
           <div className='group relative'>
             <button className='mx-2 inline-flex items-center px-2 sm:mx-0 sm:py-2'>
               <span className='mr-2 text-lg'>Movies</span>
-              <ChevronDown className='h-4 w-4' />
+              <ChevronDownIcon className='h-4 w-4' />
             </button>
             <div
               className={clsx(
@@ -64,8 +69,8 @@ export function Navbar() {
           )}
           onClick={() => setIsMenuHidden(!isMenuHidden)}
         >
-          <Menu className={`${!isMenuHidden ? 'hidden' : ''} h-6 w-6`} />
-          <X className={`${isMenuHidden ? 'hidden' : ''} h-6 w-6`} />
+          <MenuIcon className={`${!isMenuHidden ? 'hidden' : ''} h-6 w-6`} />
+          <XIcon className={`${isMenuHidden ? 'hidden' : ''} h-6 w-6`} />
         </button>
 
         {/* navbar right side */}

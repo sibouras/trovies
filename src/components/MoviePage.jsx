@@ -1,9 +1,10 @@
 import { useParams } from 'react-router-dom';
+import { BookmarkIcon, CheckIcon } from '@heroicons/react/outline';
+import { StarIcon } from '@heroicons/react/solid';
 import { useMovie } from '../hooks/useMovie';
-import { PageLoading } from './PageLoading';
+import { BeatLoader } from '../assets/icons/BeatLoader';
 import { AddButton } from './AddButton';
 import { formatDate, formatMinutes } from '../utils/functions';
-import { Bookmark, Check, StarSolid } from '../assets/icons/HeroIcons';
 
 export function MoviePage() {
   const params = useParams();
@@ -13,7 +14,7 @@ export function MoviePage() {
   if (isLoading) {
     return (
       <div className='flex h-screen justify-center align-top'>
-        <PageLoading className={'h-3/5 w-40 text-gray-500'} />
+        <BeatLoader className={'h-3/5 w-40 text-gray-500'} />
       </div>
     );
   }
@@ -56,7 +57,7 @@ export function MoviePage() {
 
           <div className='mt-2 flex items-center space-x-4'>
             <div>
-              <StarSolid className='mr-1 inline-block h-6 w-6 text-yellow-400' />
+              <StarIcon className='mr-1 inline-block h-6 w-6 text-yellow-400' />
               {movieDetails.vote_average}
               <span className='text-gray-500 dark:text-gray-400'>
                 /10 • {movieDetails.vote_count}
@@ -64,10 +65,10 @@ export function MoviePage() {
             </div>
             <div className='flex space-x-4'>
               <AddButton movie={movieDetails} listType='watched'>
-                <Check className='h-6 w-6' />
+                <CheckIcon className='h-6 w-6' />
               </AddButton>
               <AddButton movie={movieDetails} listType='watchlist'>
-                <Bookmark className='h-5 w-5' />
+                <BookmarkIcon className='h-5 w-5' />
               </AddButton>
             </div>
           </div>

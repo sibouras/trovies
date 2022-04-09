@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { useSearchParams, useLocation } from 'react-router-dom';
-import { ArrowDown, ArrowUp } from '../assets/icons/HeroIcons';
+import { ArrowDownIcon, ArrowUpIcon } from '@heroicons/react/solid';
 
 export function ListFilter({ list, setList }) {
   const location = useLocation();
@@ -60,9 +60,9 @@ export function ListFilter({ list, setList }) {
         title='Ascending/Descending'
       >
         {!order || order === 'desc' ? (
-          <ArrowDown className='h-5 w-5' />
+          <ArrowDownIcon className='h-5 w-5' />
         ) : (
-          <ArrowUp className='h-5 w-5' />
+          <ArrowUpIcon className='h-5 w-5' />
         )}
       </button>
     </div>

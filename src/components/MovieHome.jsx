@@ -1,6 +1,6 @@
 import { useOutletContext } from 'react-router-dom';
 import { useMovies } from '../hooks/useMovies';
-import { PageLoading } from './PageLoading';
+import { BeatLoader } from '../assets/icons/BeatLoader';
 import { Pagination } from './Pagination';
 import { MovieGrid } from './MovieGrid';
 
@@ -15,7 +15,7 @@ export function MovieHome() {
   if (isLoading) {
     return (
       <div className='flex h-screen justify-center align-top'>
-        <PageLoading className={'h-3/5 w-40 text-gray-500'} />
+        <BeatLoader className={'h-3/5 w-40 text-gray-500'} />
       </div>
     );
   }

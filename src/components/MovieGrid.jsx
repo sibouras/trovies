@@ -1,8 +1,9 @@
 import { Link } from 'react-router-dom';
 import clsx from 'clsx';
+import { BookmarkIcon, CheckIcon } from '@heroicons/react/outline';
+import { StarIcon } from '@heroicons/react/solid';
 import { AddButton } from './AddButton';
 import { formatDate } from '../utils/functions';
-import { Bookmark, Check, StarSolid } from '../assets/icons/HeroIcons';
 import noImage from '../assets/img/img-not-found.svg';
 
 export function MovieGrid({ movies }) {
@@ -70,16 +71,16 @@ function ImageOverlay({ movie }) {
         )}
       >
         <div className='flex items-center justify-center space-x-1 p-1'>
-          <StarSolid className='inline h-5 w-5 text-yellow-300' />
+          <StarIcon className='inline h-5 w-5 text-yellow-300' />
           <span className='font-bold'>{vote_average}</span>
         </div>
         <h3 className='w-full py-2 text-center text-lg'>{title}</h3>
         <div className='pointer-events-auto mt-1 flex space-x-5'>
           <AddButton listType='watched' movie={movie} tabIndex='-1'>
-            <Check className='h-6 w-6' />
+            <CheckIcon className='h-6 w-6' />
           </AddButton>
           <AddButton listType='watchlist' movie={movie} tabIndex='-1'>
-            <Bookmark className='h-5 w-5' />
+            <BookmarkIcon className='h-5 w-5' />
           </AddButton>
         </div>
       </div>

@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
-import { usePagination, DOTS } from '../hooks/usePagination';
-import { ChevronLeft, ChevronRight } from '../assets/icons/HeroIcons';
 import clsx from 'clsx';
+import { ChevronRightIcon, ChevronLeftIcon } from '@heroicons/react/outline';
+import { usePagination, DOTS } from '../hooks/usePagination';
 
 export function Pagination({
   placement,
@@ -28,7 +28,7 @@ export function Pagination({
           setSearchParams({ page: Math.max(1, page - 1) });
         }}
       >
-        <ChevronLeft className='h-6 w-5 xs:h-7 xs:w-6' />
+        <ChevronLeftIcon className='h-6 w-5 xs:h-7 xs:w-6' />
       </Controls>
 
       {paginationRange.map((pageNumber, index) => {
@@ -67,7 +67,7 @@ export function Pagination({
           }
         }}
       >
-        <ChevronRight className='h-6 w-5 xs:h-7 xs:w-6' />
+        <ChevronRightIcon className='h-6 w-5 xs:h-7 xs:w-6' />
       </Controls>
     </div>
   );

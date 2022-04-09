@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { Sun, Moon } from '../assets/icons/HeroIcons';
 import clsx from 'clsx';
+import { SunIcon, MoonIcon } from '@heroicons/react/outline';
 
 const getCurrentTheme = () => {
   let theme = window.matchMedia('(prefers-color-scheme: dark)').matches
@@ -39,9 +39,9 @@ export function ThemeToggle() {
       onClick={handleThemeToggle}
     >
       {theme === 'dark' ? (
-        <Sun className='h-5 w-5' />
+        <SunIcon className='h-5 w-5' />
       ) : (
-        <Moon className='h-5 w-5' />
+        <MoonIcon className='h-5 w-5' />
       )}
     </button>
   );

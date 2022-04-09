@@ -1,8 +1,8 @@
 import { useRef, useState } from 'react';
 import clsx from 'clsx';
+import { SearchIcon } from '@heroicons/react/outline';
 import { useMovieSearch } from '../hooks/useMovieSearch';
 import { SearchbarItem } from './SearchbarItem';
-import { Search } from '../assets/icons/HeroIcons';
 import { Spinner } from '../assets/icons/css.gg';
 
 export function Searchbar() {
@@ -71,7 +71,7 @@ export function Searchbar() {
           {isLoading ? (
             <Spinner className='h-6 w-6 animate-spin' />
           ) : (
-            <Search className='h-6 w-6' />
+            <SearchIcon className='h-6 w-6' />
           )}
         </label>
         <input
