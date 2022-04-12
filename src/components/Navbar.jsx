@@ -19,7 +19,7 @@ export function Navbar() {
         {/* navbar left side */}
         <div className='inline-flex items-center sm:space-x-3'>
           <NavLink
-            to='/movie'
+            to='/movie/popular?page=1'
             className='hidden items-center p-1 text-2xl xs:flex'
           >
             <FilmIcon className='h-6 w-6' />

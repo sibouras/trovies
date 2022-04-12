@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import { BookmarkIcon, CheckIcon } from '@heroicons/react/outline';
 import { StarIcon } from '@heroicons/react/solid';
 import { AddButton } from './AddButton';
-import { formatDate } from '../utils/functions';
+import { formatDate, slugify } from '../utils/functions';
 import noImage from '../assets/img/img-not-found.svg';
 
 export function MovieGrid({ movies }) {
@@ -20,10 +20,7 @@ export function MovieGrid({ movies }) {
         return (
           <div key={id} className='group mb-3'>
             <div className='relative mb-2 w-full overflow-hidden rounded-lg'>
-              <Link
-                to={`/movie/${id}-${title.replaceAll(' ', '-')}`}
-                tabIndex='-1'
-              >
+              <Link to={`/movie/${id}-${slugify(title)}`} tabIndex='-1'>
                 {poster_path ? (
                   <img
                     className='h-full w-full object-cover'
@@ -37,13 +34,13 @@ export function MovieGrid({ movies }) {
               <ImageOverlay movie={movie} />
             </div>
             <h3 className='group-hover:text-blue-700 dark:group-hover:text-blue-300'>
-              <a
-                href={`/movie/${id}-${title.replaceAll(' ', '-')}`}
+              <Link
+                to={`/movie/${id}-${slugify(title)}`}
                 title={title}
                 className='mt-3 mb-1 inline-block w-fit line-clamp-1 focus:outline-offset-[-1px]'
               >
                 {title}
-              </a>
+              </Link>
             </h3>
             <p className='text-sm group-hover:text-blue-700/90 dark:group-hover:text-blue-300/80'>
               {formatDate(release_date)}

@@ -1,8 +1,10 @@
 import { useGlobalContext } from '../context/GlobalState';
 import { MovieGrid } from './MovieGrid';
 import { ListFilter } from './ListFilter';
+import { useTitle } from '../hooks/useTitle';
 
 export function WatchList() {
+  useTitle('Watchlist');
   const { list, setList } = useGlobalContext();
   const { watchlist } = list;
 

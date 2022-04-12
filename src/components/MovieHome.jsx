@@ -3,9 +3,12 @@ import { useMovies } from '../hooks/useMovies';
 import { BeatLoader } from '../assets/icons/BeatLoader';
 import { Pagination } from './Pagination';
 import { MovieGrid } from './MovieGrid';
+import { useTitle } from '../hooks/useTitle';
+import { titleize } from '../utils/functions';
 
 export function MovieHome() {
   const { type, searchParams, setSearchParams } = useOutletContext();
+  useTitle(titleize(type));
   const page = +searchParams.get('page') || 1;
   const { data, isLoading, isError, error, isPreviousData } = useMovies(
     page,

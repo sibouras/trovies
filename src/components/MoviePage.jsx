@@ -5,11 +5,13 @@ import { useMovie } from '../hooks/useMovie';
 import { BeatLoader } from '../assets/icons/BeatLoader';
 import { AddButton } from './AddButton';
 import { formatDate, formatMinutes } from '../utils/functions';
+import { useTitle } from '../hooks/useTitle';
 
 export function MoviePage() {
   const params = useParams();
   const movieId = params.movieId.split('-')[0];
   const { data: movieDetails, isLoading, isError, error } = useMovie(movieId);
+  useTitle(movieDetails?.title);
 
   if (isLoading) {
     return (

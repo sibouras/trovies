@@ -1,5 +1,6 @@
 import clsx from 'clsx';
 import { Link } from 'react-router-dom';
+import { slugify } from '../utils/functions';
 
 export function SearchbarItem({
   item: { id, poster_path, title, release_date },
@@ -8,7 +9,7 @@ export function SearchbarItem({
     <li>
       <Link
         tabIndex='-1'
-        to={`movie/${id}-${title.replaceAll(' ', '-')}`}
+        to={`movie/${id}-${slugify(title)}`}
         className={clsx(
           'flex space-x-5 px-3 py-2 focus-within:outline-none hover:bg-gray-200 focus:bg-slate-200',
           'focus:outline-offset-[-2px] focus:outline-slate-500 dark:hover:bg-gray-700 dark:focus:bg-slate-700'
