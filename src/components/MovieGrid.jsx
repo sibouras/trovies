@@ -4,12 +4,12 @@ import { BookmarkIcon, CheckIcon } from '@heroicons/react/outline';
 import { StarIcon } from '@heroicons/react/solid';
 import { AddButton } from './AddButton';
 import { formatDate, slugify } from '../utils/functions';
-import noImage from '../assets/img/img-not-found.svg';
+import noImage from '../assets/img/noImage.svg';
 
 export function MovieGrid({ movies }) {
   return (
     <div
-      className={`grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-4 ${
+      className={`grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] place-items-center gap-4 ${
         movies.length <= 5
           ? 'sm:grid-cols-[repeat(auto-fit,214px)]'
           : 'min-h-screen'
@@ -23,12 +23,11 @@ export function MovieGrid({ movies }) {
               <Link to={`/movie/${id}-${slugify(title)}`} tabIndex='-1'>
                 {poster_path ? (
                   <img
-                    className='h-full w-full object-cover'
                     src={`https://www.themoviedb.org/t/p/w300${poster_path}`}
                     alt={title}
                   />
                 ) : (
-                  <img src={noImage} alt='not found' className='bg-gray-400' />
+                  <img src={noImage} className='bg-gray-400' alt='not found' />
                 )}
               </Link>
               <ImageOverlay movie={movie} />

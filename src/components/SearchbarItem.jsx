@@ -1,6 +1,7 @@
 import clsx from 'clsx';
 import { Link } from 'react-router-dom';
 import { slugify } from '../utils/functions';
+import noImage from '../assets/img/noImage.svg';
 
 export function SearchbarItem({
   item: { id, poster_path, title, release_date },
@@ -23,7 +24,11 @@ export function SearchbarItem({
             alt={title}
           />
         ) : (
-          <div className='h-20 w-14 flex-shrink-0 bg-slate-900'></div>
+          <img
+            className='h-20 w-14 flex-shrink-0 bg-gray-400'
+            src={noImage}
+            alt='not found'
+          />
         )}
         <div className='flex flex-col justify-between pb-3'>
           <h1 className=''>{title}</h1>
