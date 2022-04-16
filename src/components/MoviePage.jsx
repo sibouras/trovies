@@ -6,6 +6,7 @@ import { BeatLoader } from '../assets/icons/BeatLoader';
 import { AddButton } from './AddButton';
 import { formatDate, formatMinutes } from '../utils/functions';
 import { useTitle } from '../hooks/useTitle';
+import noImage from '../assets/img/noImage.svg';
 
 export function MoviePage() {
   const params = useParams();
@@ -32,11 +33,19 @@ export function MoviePage() {
   return (
     <>
       <div className='py-8 md:flex'>
-        <img
-          className='mx-auto w-80 rounded-xl'
-          src={`https://www.themoviedb.org/t/p/w500${movieDetails.poster_path}`}
-          alt={movieDetails.title}
-        />
+        {movieDetails.poster_path ? (
+          <img
+            className='mx-auto w-80 rounded-xl'
+            src={`https://www.themoviedb.org/t/p/w500${movieDetails.poster_path}`}
+            alt={movieDetails.title}
+          />
+        ) : (
+          <img
+            className='mx-auto w-80 rounded-xl bg-gray-400'
+            src={noImage}
+            alt='not found'
+          />
+        )}
         <div className='w-full py-12 px-10'>
           <h2 className='mb-2 text-xl font-bold tracking-wide md:text-3xl'>
             {movieDetails.title}
