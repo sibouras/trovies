@@ -1,10 +1,9 @@
 import { useQuery, useQueryClient } from 'react-query';
-import { API_KEY } from '../utils/constants';
 import { useEffect } from 'react';
 
 const getMovies = async (page, type) => {
-  const url = `https://api.themoviedb.org/3/movie/${type}?api_key=${API_KEY}&language=en-US`;
-  const response = await fetch(`${url}&page=${page}`);
+  const url = `/.netlify/functions/fetch-movies?language=en-US`;
+  const response = await fetch(`${url}&type=${type}&page=${page}`);
   if (!response.ok) {
     throw new Error('Page not found!');
   }
