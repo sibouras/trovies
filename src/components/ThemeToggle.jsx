@@ -13,7 +13,7 @@ const getCurrentTheme = () => {
 };
 
 const loadTheme = (theme) => {
-  document.body.setAttribute('class', theme);
+  document.documentElement.setAttribute('class', theme);
 };
 
 export function ThemeToggle() {
@@ -38,7 +38,7 @@ export function ThemeToggle() {
       )}
       onClick={handleThemeToggle}
     >
-      {theme === 'dark' ? (
+      {theme === 'light' ? (
         <SunIcon className='h-5 w-5' />
       ) : (
         <MoonIcon className='h-5 w-5' />
